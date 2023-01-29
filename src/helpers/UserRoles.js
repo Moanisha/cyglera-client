@@ -1,0 +1,6 @@
+const ADMIN = "ADMIN";
+const CLIENT = "CLIENT";
+const DIETICIAN = "DIETICIAN";
+const TRAINER = "TRAINER";
+
+export { ADMIN, CLIENT, DIETICIAN, TRAINER };
