@@ -12,17 +12,13 @@ const SignupComponent = ({ state, errorState, submitForm, handleChange }) => {
           errorState.hasError
             ? {
                 justifyContent: "center",
-                border: "2px solid #f44336",
+                border: "2px solid black",
                 mt: "1%",
-                boxShadow: "-26px -21px 21px -6px rgba(224,34,34,0.64)",
-                // boxShadow: "24px 29px 14px -9px rgba(51,221,33,0.69)",
               }
             : {
                 justifyContent: "center",
-                border: "2px solid #8bc34a",
+                border: "2px solid black",
                 mt: "1%",
-                // boxShadow: "-46px -31px 41px -6px rgba(224,34,34,0.64)",
-                boxShadow: "24px 29px 14px -9px rgba(51,221,33,0.69)",
               }
         }
       >
@@ -30,7 +26,7 @@ const SignupComponent = ({ state, errorState, submitForm, handleChange }) => {
           <Box sx={{ py: 2 }}>
             <TextField
               type="text"
-              label="name"
+              label="Name"
               name="name"
               value={state.name}
               onChange={(ev) => handleChange(ev)}
@@ -44,7 +40,7 @@ const SignupComponent = ({ state, errorState, submitForm, handleChange }) => {
           <Box sx={{ py: 2 }}>
             <TextField
               type="email"
-              label="email"
+              label="Email"
               name="email"
               value={state.email}
               onChange={(ev) => handleChange(ev)}
@@ -58,7 +54,7 @@ const SignupComponent = ({ state, errorState, submitForm, handleChange }) => {
           <Box sx={{ py: 2 }}>
             <TextField
               type="password"
-              label="password"
+              label="Password"
               name="password"
               value={state.password}
               onChange={(ev) => handleChange(ev)}
@@ -72,7 +68,7 @@ const SignupComponent = ({ state, errorState, submitForm, handleChange }) => {
           <Box sx={{ py: 3 }}>
             <TextField
               type="userRole"
-              label="userRole"
+              label="ADMIN / DIETICIAN / CLIENT / TRAINER"
               name="userRole"
               value={state.userRole}
               error={errorState.roleError}

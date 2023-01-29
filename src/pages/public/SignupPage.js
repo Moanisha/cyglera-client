@@ -45,15 +45,18 @@ const SignupPage = () => {
     const passwordError = password.length < 8 ? true : false;
     const nameError = name.length < 3 ? true : false;
     var roleError = false;
+    console.log(userRole);
     if (
-      userRole.trim().toUpperCase() !== "ADMIN" ||
-      userRole.trim().toUpperCase() !== "DIETICIAN" ||
-      userRole.trim().toUpperCase() !== "TRAINER" ||
+      userRole.trim().toUpperCase() !== "ADMIN" &&
+      userRole.trim().toUpperCase() !== "DIETICIAN" &&
+      userRole.trim().toUpperCase() !== "TRAINER" &&
       userRole.trim().toUpperCase() !== "CLIENT"
     ) {
       roleError = true;
+    } else {
+      roleError = false;
     }
-
+    console.log(roleError);
     //setting errorState
     setErrorState((prev) => ({
       ...prev,

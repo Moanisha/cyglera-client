@@ -12,17 +12,13 @@ const SigninComponent = ({ state, errorState, submitForm, handleChange }) => {
           errorState.hasError
             ? {
                 justifyContent: "center",
-                border: "2px solid #f44336",
+                border: "2px solid black",
                 mt: "1%",
-                boxShadow: "-26px -21px 21px -6px rgba(224,34,34,0.64)",
-                // boxShadow: "24px 29px 14px -9px rgba(51,221,33,0.69)",
               }
             : {
                 justifyContent: "center",
-                border: "2px solid #8bc34a",
+                border: "2px solid black",
                 mt: "1%",
-                // boxShadow: "-46px -31px 41px -6px rgba(224,34,34,0.64)",
-                boxShadow: "24px 29px 14px -9px rgba(51,221,33,0.69)",
               }
         }
       >
