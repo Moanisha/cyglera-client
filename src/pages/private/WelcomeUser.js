@@ -1,8 +1,6 @@
 import { Typography } from "@mui/material";
 import React from "react";
 import ComponentWrapper from "../../components/private/ComponentWrapper";
-import ClientDashboard from "../../components/private/client/ClientDashboard";
-import PageTitle from "../../components/private/navigation/PageTitle";
 import { ADMIN, CLIENT, DIETICIAN } from "../../helpers/UserRoles";
 import useRole from "../../hooks/useRole";
 
@@ -10,11 +8,6 @@ const WelcomeUser = () => {
   const userRole = useRole();
   return (
     <>
-      {/* this is pageTitle */}
-      <>
-        <PageTitle title="Welcome User" />
-      </>
-
       <ComponentWrapper>
         {/* if role is admin, show admin layout */}
         {userRole === ADMIN && (
@@ -29,7 +22,11 @@ const WelcomeUser = () => {
           </>
         )}
         {/* if role is employee, show employee layout */}
-        {userRole === CLIENT && <ClientDashboard />}
+        {userRole === CLIENT && (
+          <>
+            <Typography variant="h4">Welcome CLIENT</Typography>
+          </>
+        )}
       </ComponentWrapper>
     </>
   );

@@ -1,8 +1,22 @@
-import { Box, Button, Container, Stack, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Stack,
+  TextField,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 
-const SignupComponent = ({ state, errorState, submitForm, handleChange }) => {
+const SignupComponent = ({
+  state,
+  errorState,
+  submitForm,
+  handleChange,
+  roles,
+}) => {
   return (
     <>
       {/* here form elements */}
@@ -66,11 +80,10 @@ const SignupComponent = ({ state, errorState, submitForm, handleChange }) => {
           </Box>
 
           <Box sx={{ py: 3 }}>
-            <TextField
-              type="userRole"
-              label="ADMIN / DIETICIAN / CLIENT / TRAINER"
-              name="userRole"
+            <Select
               value={state.userRole}
+              name="userRole"
+              label="User role"
               error={errorState.roleError}
               onChange={(ev) => handleChange(ev)}
               helperText={
@@ -78,7 +91,15 @@ const SignupComponent = ({ state, errorState, submitForm, handleChange }) => {
               }
               variant="standard"
               fullWidth
-            />
+            >
+              {roles?.map((option) => {
+                return (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label ?? option.value}
+                  </MenuItem>
+                );
+              })}
+            </Select>
           </Box>
 
           <Box sx={{ py: 4 }}>

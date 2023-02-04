@@ -2,16 +2,16 @@ import React from "react";
 import { Typography } from "@mui/material";
 import ComponentWrapper from "../ComponentWrapper";
 
-const ClientDashboard = () => {
+const ViewAppointments = () => {
   return (
     <>
       <ComponentWrapper>
         <>
-          <Typography variant="h4">Welcome CLIENT</Typography>
+          <Typography variant="h4">View appointments</Typography>
         </>
       </ComponentWrapper>
     </>
   );
 };
 
-export default ClientDashboard;
+export default ViewAppointments;

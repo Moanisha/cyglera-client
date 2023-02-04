@@ -50,18 +50,20 @@ const Navigation = ({ navFeaturesList }) => {
 
   return (
     <>
-      <AppBar position="static" sx={{ background: "#00695c" }}>
+      <AppBar position="static" sx={{ background: "black" }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-            >
-              Life style and wellness APP
-            </Typography>
-
+            <Box
+              component="img"
+              sx={{
+                my: 2,
+                mr: 2,
+                height: 50,
+                display: { xs: "none", md: "flex" },
+              }}
+              alt="Your logo."
+              src="https://app.saluswell.com/wp-content/uploads/2022/06/saluswell-logo.png"
+            />
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
                 size="large"
@@ -105,15 +107,18 @@ const Navigation = ({ navFeaturesList }) => {
             </Box>
 
             {/* this is logo showing in mobileView */}
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-            >
-              Life style and wellness APP
-            </Typography>
-
+            <Box
+              component="img"
+              sx={{
+                my: 2,
+                mx: 6,
+                display: { xs: "flex", md: "none" },
+                height: 40,
+                width: 200,
+              }}
+              alt="Your logo."
+              src="https://app.saluswell.com/wp-content/uploads/2022/06/saluswell-logo.png"
+            />
             {/* this is the navigation in above md View */}
             <Box
               sx={{ flexGrow: 1, ml: 5, display: { xs: "none", md: "flex" } }}

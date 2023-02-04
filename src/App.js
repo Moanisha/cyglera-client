@@ -13,24 +13,15 @@ import Loader from "./helpers/Loader";
 import { createTheme, CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 
+import ViewAppointmentsPage from "./pages/private/dietician/ViewAppointments";
 import WelcomeUser from "./pages/private/WelcomeUser";
-
-// admin
-// dietician
-// user
-import UserProfilePage from "./pages/private/client/UserProfilePage";
-import UpdatePwdPage from "./pages/private/client/UpdatePwdPage";
-
-// this helps in accessing only userAllowed routes/pages
-import ClientProtected from "./helpers/routeProtecter/ClientProtected";
-// import DieticianProtected from "./helpers/routeProtecter/DieticianProtected";
-// import AdminProtected from "./helpers/routeProtecter/AdminProtected";
+import DieticianProtected from "./helpers/routeProtecter/DieticianProtected";
 
 const App = () => {
   const theme = createTheme({
     palette: {
       background: {
-        default: "rgba(51,221,33,0.69)",
+        default: "white",
       },
     },
   });
@@ -46,36 +37,22 @@ const App = () => {
           <Route path="/signin" element={<SigninPage />} />
 
           <Route
-            path="/dashboard"
+            path="/"
             element={
               <Protected redirect={<SigninPage />}>
                 <Dashboard />
               </Protected>
             }
           >
+            <Route
+              path="appointments"
+              element={
+                <DieticianProtected redirect={<WelcomeUser />}>
+                  <ViewAppointmentsPage />
+                </DieticianProtected>
+              }
+            />
             <Route path="" element={<WelcomeUser />} />
-
-            {/* admin routes */}
-
-            {/* Dietician route */}
-
-            {/* Client routes */}
-            <Route
-              path="myprofile"
-              element={
-                <ClientProtected redirect={<WelcomeUser />}>
-                  <UserProfilePage />
-                </ClientProtected>
-              }
-            />
-            <Route
-              path="changepwd"
-              element={
-                <ClientProtected redirect={<WelcomeUser />}>
-                  <UpdatePwdPage />
-                </ClientProtected>
-              }
-            />
 
             <Route path="*" element={<WelcomeUser />} />
           </Route>

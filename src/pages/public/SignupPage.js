@@ -23,6 +23,12 @@ const SignupPage = () => {
     nameError: false,
     hasError: false,
   };
+
+  const roles = [
+    { label: "Client", value: "CLIENT" },
+    { label: "Dietician", value: "DIETICIAN" },
+    { label: "Trainer", value: "TRAINER" },
+  ];
   const [state, setState] = useState(initialValue);
   const [errorState, setErrorState] = useState(initialErrorState);
   const dispatch = useActionDispatcher();
@@ -117,6 +123,7 @@ const SignupPage = () => {
         errorState={errorState}
         submitForm={submitForm}
         handleChange={handleChange}
+        roles={roles}
       />
     </>
   );
