@@ -5,9 +5,9 @@ import Navigation from "../components/private/navigation/Navigation";
 import adminNavList from "../helpers/navItems/AdminNavList";
 import dieticianNavlist from "../helpers/navItems/DieticianNavList";
 import clientNavList from "../helpers/navItems/ClientNavList";
-
 import { ADMIN, CLIENT, DIETICIAN } from "../helpers/UserRoles";
 import useRole from "../hooks/useRole";
+import Footer from "./Footer";
 
 const Dashboard = () => {
   const userRole = useRole();
@@ -37,6 +37,7 @@ const Dashboard = () => {
       <>
         <Outlet />
       </>
+      <Footer />
     </>
   );
 };

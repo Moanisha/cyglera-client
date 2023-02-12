@@ -16,6 +16,8 @@ import { ThemeProvider } from "@emotion/react";
 import ViewAppointmentsPage from "./pages/private/dietician/ViewAppointments";
 import WelcomeUser from "./pages/private/WelcomeUser";
 import DieticianProtected from "./helpers/routeProtecter/DieticianProtected";
+import RecipesPage from "./pages/private/dietician/Recipes";
+import Recipe from "./components/private/dietician/Recipe";
 
 const App = () => {
   const theme = createTheme({
@@ -49,6 +51,24 @@ const App = () => {
               element={
                 <DieticianProtected redirect={<WelcomeUser />}>
                   <ViewAppointmentsPage />
+                </DieticianProtected>
+              }
+            />
+
+            <Route
+              path="recipes"
+              element={
+                <DieticianProtected redirect={<WelcomeUser />}>
+                  <RecipesPage />
+                </DieticianProtected>
+              }
+            />
+
+            <Route
+              path="recipes/:recipe_id"
+              element={
+                <DieticianProtected redirect={<WelcomeUser />}>
+                  <Recipe />
                 </DieticianProtected>
               }
             />

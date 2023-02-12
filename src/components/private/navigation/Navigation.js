@@ -10,7 +10,6 @@ import {
   Stack,
   Toolbar,
   Tooltip,
-  Typography,
 } from "@mui/material";
 
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
@@ -50,7 +49,16 @@ const Navigation = ({ navFeaturesList }) => {
 
   return (
     <>
-      <AppBar position="static" sx={{ background: "black" }}>
+      <AppBar
+        position="static"
+        sx={{ background: "black" }}
+        title={
+          <img
+            src="https://app.saluswell.com/wp-content/uploads/2022/06/saluswell-logo.png"
+            alt="logo"
+          />
+        }
+      >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Box
