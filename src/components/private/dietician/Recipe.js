@@ -44,7 +44,7 @@ const Recipe = () => {
   return (
     <Container
       sx={{
-        my: 5,
+        my: 20,
       }}
     >
       <Paper>

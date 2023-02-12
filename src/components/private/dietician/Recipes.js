@@ -71,7 +71,7 @@ const Recipes = () => {
     <>
       <Container
         sx={{
-          my: 5,
+          my: 20,
         }}
         style={{
           width: "100vh",

@@ -128,7 +128,7 @@ export default function ViewAppointmentsPage() {
   return (
     <Container
       sx={{
-        my: 5,
+        my: 20,
       }}
       style={{
         width: "100%",

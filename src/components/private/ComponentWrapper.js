@@ -8,7 +8,7 @@ const ComponentWrapper = ({ children }) => {
         <Container
           sx={{
             mx: 5,
-            my: 5,
+            my: 20,
           }}
           style={{
             height: "100vh",

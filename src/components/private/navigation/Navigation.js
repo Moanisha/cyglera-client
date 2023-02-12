@@ -50,7 +50,7 @@ const Navigation = ({ navFeaturesList }) => {
   return (
     <>
       <AppBar
-        position="static"
+        position="fixed"
         sx={{ background: "black" }}
         title={
           <img
