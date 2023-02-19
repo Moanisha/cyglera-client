@@ -70,8 +70,7 @@ const Recipe = () => {
             <Box
               component="img"
               sx={{
-                height: 600,
-                width: 600,
+                width: "100%",
               }}
               alt="Your logo."
               src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NXx8fGVufDB8fHx8&auto=format&fit=crop&w=2000&q=60"

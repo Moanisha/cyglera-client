@@ -119,11 +119,8 @@ export default function ViewAppointmentsPage() {
   const [openPopup, setOpenPopup] = useState(false);
 
   const addOrEdit = (appointment) => {
-    console.log("inside add or edit");
     setOpenPopup(false);
-    console.log(appointment);
     setRows([...rows, appointment]);
-    console.log(rows);
   };
   return (
     <Container

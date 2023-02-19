@@ -21,7 +21,6 @@ export default function AddAppointmentPage(props) {
   const { addOrEdit } = props;
 
   const handleSubmit = (e) => {
-    console.log("insde handle submit");
     e.preventDefault();
     addOrEdit(values);
   };
