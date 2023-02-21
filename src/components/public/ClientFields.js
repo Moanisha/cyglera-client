@@ -30,6 +30,8 @@ const names = [
   "Get off or decrease medications",
   "Other",
 ];
+const langNames = ["English", "French", "Hindi", "Spanish", "Tamil"];
+
 const activityLevel = ["Not Active", "Moderately Active", "Very Active"];
 const dietHabits = [
   "Eats Adequate amounts of fruits and veg",
@@ -103,7 +105,7 @@ const ClientFields = ({ state, handleChange }) => {
     handleChange(convertToDefEventPara("goals", goals));
   }, [goals]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
-    handleChange(convertToDefEventPara("habits", habits));
+    handleChange(convertToDefEventPara("dietHabits", habits));
   }, [habits]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
@@ -161,7 +163,7 @@ const ClientFields = ({ state, handleChange }) => {
             <TextField
               type="text"
               label="BMI"
-              name="bmi"
+              name="BMI"
               value={state.bmi}
               onChange={(ev) => handleChange(ev)}
               variant="standard"
@@ -241,7 +243,7 @@ const ClientFields = ({ state, handleChange }) => {
               MenuProps={MenuProps}
               fullWidth
             >
-              {names.map((name) => (
+              {langNames.map((name) => (
                 <MenuItem key={name} value={name}>
                   <Checkbox checked={language.indexOf(name) > -1} />
                   <ListItemText primary={name} />
@@ -253,7 +255,7 @@ const ClientFields = ({ state, handleChange }) => {
             <TextField
               type="text"
               label="Occupation"
-              name="Occupation"
+              name="occupation"
               value={state.occupation}
               onChange={(ev) => handleChange(ev)}
               variant="standard"

@@ -20,13 +20,13 @@ const Dashboard = () => {
           <Navigation navFeaturesList={adminNavList} />
         </>
       )}
-      {/* if role is canteen, show canteen layout */}
+      {/* if role is client, show client layout */}
       {userRole === CLIENT && (
         <>
           <Navigation navFeaturesList={clientNavList} />
         </>
       )}
-      {/* if role is employee, show employee layout */}
+      {/* if role is dietician, show dietician layout */}
       {userRole === DIETICIAN && (
         <>
           <Navigation navFeaturesList={dieticianNavlist} />
