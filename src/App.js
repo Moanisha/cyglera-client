@@ -20,6 +20,7 @@ import ClientProtected from "./helpers/routeProtecter/ClientProtected";
 import RecipesPage from "./pages/private/dietician/Recipes";
 import Recipe from "./components/private/dietician/Recipe";
 import Profile from "./components/private/profile";
+import AddRecipeForm from "./components/private/dietician/AddRecipe";
 
 const App = () => {
   const theme = createTheme({
@@ -92,6 +93,14 @@ const App = () => {
               }
             />
             
+            <Route
+              path="addrecipes"
+              element={
+                <DieticianProtected redirect={<WelcomeUser />}>
+                  <AddRecipeForm />
+                </DieticianProtected>
+              }
+            />
             <Route path="" element={<WelcomeUser />} />
 
             <Route path="*" element={<WelcomeUser />} />
