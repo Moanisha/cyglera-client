@@ -22,11 +22,11 @@ const UserNavList = ({ handleCloseUserIcon }) => {
   return (
     <>
       {/* profileView only for employees */}
-      {userRole === CLIENT && (
+      {/* {userRole === CLIENT && ( */}
         <>
           <Button
             sx={{ color: "#009688", textAlign: "center" }}
-            onClick={() => goToWhere("myprofile")}
+            onClick={() => goToWhere("profile")}
           >
             My Profile
           </Button>
@@ -38,7 +38,7 @@ const UserNavList = ({ handleCloseUserIcon }) => {
             Update Password
           </Button>
         </>
-      )}
+      {/* )} */}
 
       <Button
         sx={{ color: "#009688", textAlign: "center" }}
