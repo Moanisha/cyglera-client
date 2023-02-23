@@ -20,7 +20,7 @@ function Profile() {
                   />
                   <div className="mt-3">
                     <h4>Vikas</h4>
-                    <p className="text-secondary mb-1">Client</p>
+                    <p className="text-secondary mb-1">{userRole}</p>
                     <p className="text-muted font-size-sm">
                       Delmonte Crescent, CA
                     </p>
@@ -514,9 +514,6 @@ function Profile() {
             </div>
           </div>
         </div>
-
-
-       
       </div>
     </div>
   );
