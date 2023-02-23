@@ -18,6 +18,7 @@ import WelcomeUser from "./pages/private/WelcomeUser";
 import DieticianProtected from "./helpers/routeProtecter/DieticianProtected";
 import RecipesPage from "./pages/private/dietician/Recipes";
 import Recipe from "./components/private/dietician/Recipe";
+import AddRecipeForm from "./components/private/dietician/AddRecipe";
 
 const App = () => {
   const theme = createTheme({
@@ -69,6 +70,14 @@ const App = () => {
               element={
                 <DieticianProtected redirect={<WelcomeUser />}>
                   <Recipe />
+                </DieticianProtected>
+              }
+            />
+            <Route
+              path="addrecipes"
+              element={
+                <DieticianProtected redirect={<WelcomeUser />}>
+                  <AddRecipeForm />
                 </DieticianProtected>
               }
             />
