@@ -48,30 +48,20 @@ const Footer = () => {
         </Row>
         <Row>
           <Column>
-            <Heading>About Us</Heading>
-            <FooterLink href="#">Aim</FooterLink>
-            <FooterLink href="#">Vision</FooterLink>
-            <FooterLink href="#">Testimonials</FooterLink>
+            <FooterLink href="#">Privacy and Security</FooterLink>
           </Column>
           <Column>
-            <Heading>Services</Heading>
-            <FooterLink href="#">Writing</FooterLink>
-            <FooterLink href="#">Internships</FooterLink>
-            <FooterLink href="#">Coding</FooterLink>
-            <FooterLink href="#">Teaching</FooterLink>
+            <FooterLink href="#">Terms of Use</FooterLink>
           </Column>
           <Column>
-            <Heading>Contact Us</Heading>
-            <FooterLink href="#">Uttar Pradesh</FooterLink>
-            <FooterLink href="#">Ahemdabad</FooterLink>
-            <FooterLink href="#">Indore</FooterLink>
-            <FooterLink href="#">Mumbai</FooterLink>
+            <FooterLink href="#">About us</FooterLink>
           </Column>
         </Row>
         <Row>
-          <h5 style={{ margin: "10px auto" }}>
-            Copyright © 2023 Saluswell. All rights reserved.
-          </h5>
+          <p style={{ margin: "10px auto", fontSize: "10px" }}>
+            Copyright © 2023 Saluswell. All rights reserved. Powered by Cyglera
+            Health Systems.
+          </p>
         </Row>
       </Container>
     </Box>
