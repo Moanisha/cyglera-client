@@ -52,7 +52,7 @@ const columns = [
   },
 ];
 
-export default function ViewAppointmentsPage() {
+export default function ViewClientAppointmentsPage() {
   const [rows, setRows] = useState([
     {
       id: 1,

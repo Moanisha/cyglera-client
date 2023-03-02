@@ -1,4 +1,10 @@
-import { ADMIN, CLIENT, DIETICIAN, TRAINER } from "../helpers/UserRoles";
+import {
+  PHYSICIAN,
+  CAREPROVIDER,
+  CLIENT,
+  DIETICIAN,
+  TRAINER,
+} from "../helpers/UserRoles";
 import useStateValues from "./useStateValues";
 
 const useRole = () => {
@@ -8,8 +14,8 @@ const useRole = () => {
 
   //getting role from state
   switch (role) {
-    case ADMIN: {
-      return ADMIN;
+    case PHYSICIAN: {
+      return PHYSICIAN;
     }
     case CLIENT: {
       return CLIENT;
@@ -20,6 +26,10 @@ const useRole = () => {
     case TRAINER: {
       return TRAINER;
     }
+    case CAREPROVIDER: {
+      return CAREPROVIDER;
+    }
+
     default: {
       return false;
     }

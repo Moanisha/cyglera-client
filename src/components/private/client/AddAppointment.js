@@ -17,6 +17,7 @@ const AddAppointment = ({
   handleInputChange,
   handleSubmit,
   values,
+  dietitians,
   userRole,
 }) => {
   const convertToDefEventPara = (name, value) => ({
@@ -28,10 +29,15 @@ const AddAppointment = ({
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <FormControl>
+        <FormControl
+          style={{
+            width: "100vh",
+          }}
+        >
           <Stack>
             <Box sx={{ py: 1 }}>
               <TextField
+                fullWidth
                 variant="outlined"
                 label="Customer"
                 name="customer"
@@ -58,18 +64,47 @@ const AddAppointment = ({
               />
             </Box>
             <Box sx={{ py: 1 }}>
-              <FormControl variant="outlined">
+              <FormControl
+                variant="outlined"
+                style={{
+                  width: "100vh",
+                }}
+              >
                 <InputLabel>User Role</InputLabel>
                 <Select
                   label="User role"
                   name="userRole"
+                  fullWidth
                   value={values.userRole}
                   onChange={handleInputChange}
                 >
                   <MenuItem value="">None</MenuItem>
                   {userRole.map((item) => (
-                    <MenuItem key={item.id} value={item.id}>
-                      {item.title}
+                    <MenuItem key={item.value} value={item.value}>
+                      {item.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+            <Box sx={{ py: 1 }}>
+              <FormControl
+                variant="outlined"
+                style={{
+                  width: "100vh",
+                }}
+              >
+                <InputLabel id="dietitian-label">Select one</InputLabel>
+                <Select
+                  label="Select one"
+                  name="dietician"
+                  value={values.dietitian}
+                  fullWidth
+                  onChange={handleInputChange}
+                >
+                  {dietitians.map((dietitian) => (
+                    <MenuItem key={dietitian.id} value={dietitian.id}>
+                      {dietitian.User.firstName}
                     </MenuItem>
                   ))}
                 </Select>
@@ -104,7 +139,12 @@ const AddAppointment = ({
           </Stack>
         </FormControl>
         <div>
-          <Button size={"large"} color={"primary"} type="submit">
+          <Button
+            variant="outlined"
+            size={"large"}
+            color={"primary"}
+            type="submit"
+          >
             SUBMIT
           </Button>
         </div>

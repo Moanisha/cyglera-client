@@ -56,6 +56,10 @@ const SignupPage = () => {
 
   const [isDietician, setIsDietician] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const [isTrainer, setIsTrainer] = useState(false);
+  const [isPhysician, setIsPhysician] = useState(false);
+  const [isCareProvider, setIsCareProvider] = useState(false);
+
   const [state, setState] = useState(initialValue);
   const [errorState, setErrorState] = useState(initialErrorState);
   const dispatch = useActionDispatcher();
@@ -65,15 +69,21 @@ const SignupPage = () => {
   const handleChange = (ev) => {
     setState((prev) => ({ ...prev, [ev.target.name]: ev.target.value }));
     if (ev.target.name === "userRole") {
+      setIsDietician(false);
+      setIsClient(false);
+      setIsCareProvider(false);
+      setIsTrainer(false);
+      setIsCareProvider(false);
       if (ev.target.value === roles[1].value) {
         setIsDietician(true);
-        setIsClient(false);
       } else if (ev.target.value === roles[0].value) {
         setIsClient(true);
-        setIsDietician(false);
-      } else {
-        setIsDietician(false);
-        setIsClient(false);
+      } else if (ev.target.value === roles[2].value) {
+        setIsTrainer(true);
+      } else if (ev.target.value === roles[3].value) {
+        setIsPhysician(true);
+      } else if (ev.target.value === roles[4].value) {
+        setIsCareProvider(true);
       }
     }
   };
@@ -196,6 +206,9 @@ const SignupPage = () => {
         roles={roles}
         isDietician={isDietician}
         isClient={isClient}
+        isCareProvider={isCareProvider}
+        isPhysician={isPhysician}
+        isTrainer={isTrainer}
       />
     </>
   );

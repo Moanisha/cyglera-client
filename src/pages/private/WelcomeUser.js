@@ -1,7 +1,13 @@
 import { Typography } from "@mui/material";
 import React from "react";
 import ComponentWrapper from "../../components/private/ComponentWrapper";
-import { ADMIN, CLIENT, DIETICIAN } from "../../helpers/UserRoles";
+import {
+  PHYSICIAN,
+  CLIENT,
+  DIETICIAN,
+  TRAINER,
+  CAREPROVIDER,
+} from "../../helpers/UserRoles";
 import useRole from "../../hooks/useRole";
 
 const WelcomeUser = () => {
@@ -10,9 +16,9 @@ const WelcomeUser = () => {
     <>
       <ComponentWrapper>
         {/* if role is admin, show admin layout */}
-        {userRole === ADMIN && (
+        {userRole === TRAINER && (
           <>
-            <Typography variant="h4">Welcome ADMIN USER</Typography>
+            <Typography variant="h4">Welcome TRAINER USER</Typography>
           </>
         )}
         {/* if role is canteen, show canteen layout */}
@@ -25,6 +31,18 @@ const WelcomeUser = () => {
         {userRole === CLIENT && (
           <>
             <Typography variant="h4">Welcome CLIENT</Typography>
+          </>
+        )}
+        {/* if role is employee, show employee layout */}
+        {userRole === PHYSICIAN && (
+          <>
+            <Typography variant="h4">Welcome PHYSICIAN</Typography>
+          </>
+        )}
+        {/* if role is employee, show employee layout */}
+        {userRole === CAREPROVIDER && (
+          <>
+            <Typography variant="h4">Welcome CAREPROVIDER</Typography>
           </>
         )}
       </ComponentWrapper>
