@@ -501,7 +501,9 @@ const SignupComponent = ({
         <Grid item xs={12}>
           <div>
             <span>I agree to the liability form - </span>
-            <Button onClick={handleClickOpen}>Waiver of Liability Form</Button>
+            <Button onClick={handleClickOpen}>
+              {isClient ? "Consent Form" : "Waiver of Liability Form"}
+            </Button>
             <Checkbox
               checked={checked}
               onChange={handleCheckChange}

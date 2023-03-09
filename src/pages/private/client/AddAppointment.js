@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AddAppointment from "../../../components/private/client/AddAppointment";
 import axios from "axios";
 import useStateValues from "../../../hooks/useStateValues";
@@ -9,60 +9,58 @@ const userRole = [
   { label: "Physician", value: "PHYSICIAN" },
   { label: "Care Provider", value: "CAREPROVIDER" },
 ];
-const timeSlots = [
-  { label: "9:00AM - 10:00AM", value: "9:00AM - 10:00AM" },
-  { label: "10:00AM - 11:00AM", value: "10:00AM - 11:00AM" },
-  { label: "11:00AM - 12:00PM", value: "11:00AM - 12:00PM" },
-  { label: "12:00PM - 1:00PM", value: "12:00PM - 1:00PM" },
-  { label: "2:00PM - 3:00PM", value: "2:00PM - 3:00PM" },
-  { label: "3:00PM - 4:00PM", value: "3:00PM - 4:00PM" },
-  { label: "4:00PM - 5:00PM", value: "4:00PM - 5:00PM" },
-  { label: "5:00PM - 6:00PM", value: "5:00PM - 6:00PM" },
-];
+
 const initialFValues = {
   id: 0,
-  customer: "",
-  staff: "",
+  subject: "",
   userRole: "",
-  location: "",
-  startTime: null,
-  endTime: null,
-  dietician: "",
+  user: "",
   slot: "",
 };
 
 export default function AddAppointmentPage(props) {
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const tomorrowFormatted = tomorrow.toLocaleDateString("en-US");
+
   const [values, setValues] = useState(initialFValues);
-  const [dietitians, setDietitians] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [slots, setSlots] = useState([]);
+  const [roleId, setRoleId] = useState();
+  const [relatedTo, setRelatedTo] = useState();
   const { jwtToken } = useStateValues();
-  // useEffect(() => {
-  //   async function fetchDietitians() {
-  //     const response = await axios.get(
-  //       "http://localhost:8000/api/appointment/fetchDieticianEmails",
-  //       {
-  //         headers: {
-  //           authorization: `BEARER ${jwtToken}`,
-  //         },
-  //       }
-  //     );
-  //     console.log(response.data.data);
-  //     setDietitians(response.data.data);
-  //   }
-  //   fetchDietitians();
-  // }, []);
-
-  // async function fetchAvailableSlots() {
-  //   const response = await axios.get(
-  //     `/api/dietitians/${values.dietician}/available-slots`
-  //   );
-  //   setAvailableSlots(response.data);
-  // }
-
+  const { userData } = useStateValues();
+  const relatedFrom = userData.id;
   const { addOrEdit } = props;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     addOrEdit(values);
+    try {
+      const newSlots = slots.filter((slot) => slot !== values.slot);
+      console.log(relatedFrom, values, relatedTo, newSlots);
+
+      console.log(newSlots);
+
+      // setSlots(newSlots);
+      const response = await axios.post(
+        `http://localhost:8000/api/appointment/createAppointment`,
+        {
+          values,
+          relatedTo,
+          relatedFrom,
+          newSlots,
+          roleId,
+        },
+        {
+          headers: {
+            authorization: `BEARER ${jwtToken}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleInputChange = async (e) => {
@@ -71,7 +69,7 @@ export default function AddAppointmentPage(props) {
       ...values,
       [name]: value,
     });
-    if (name == "userRole") {
+    if (name === "userRole") {
       const response = await axios.get(
         `http://localhost:8000/api/appointment/fetchUsers?role=${value}`,
         {
@@ -81,7 +79,20 @@ export default function AddAppointmentPage(props) {
         }
       );
       console.log(response.data.data);
-      setDietitians(response.data.data);
+      setUsers(response.data.data);
+    }
+    if (name === "user") {
+      const availableSlots = users
+        .filter((d) => d.id === value)
+        .map((d) => d.availableSlots);
+      setSlots(availableSlots[0]);
+      console.log(availableSlots[0]);
+      const relatedTo = users
+        .filter((d) => d.id === value)
+        .map((d) => d.User.id);
+      const roleId = users.filter((d) => d.id === value).map((d) => d.id);
+      setRoleId(roleId);
+      setRelatedTo(relatedTo[0]);
     }
   };
 
@@ -91,8 +102,9 @@ export default function AddAppointmentPage(props) {
       handleInputChange={handleInputChange}
       userRole={userRole}
       values={values}
-      dietitians={dietitians}
-      timeSlots={timeSlots}
+      users={users}
+      slots={slots}
+      appointmentDate={tomorrowFormatted}
     />
   );
 }
