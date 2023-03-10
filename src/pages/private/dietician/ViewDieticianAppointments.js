@@ -1,8 +1,10 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Link, Button, Container } from "@mui/material";
+import { Link, Container } from "@mui/material";
 import { ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
+import axios from "axios";
+import useStateValues from "../../../hooks/useStateValues";
 
 const theme = createTheme({
   components: {
@@ -21,96 +23,64 @@ const theme = createTheme({
 
 const columns = [
   { field: "id", headerName: "ID", flex: 1 },
-  { field: "customer", headerName: "Customer", flex: 1 },
-  { field: "staff", headerName: "Staff", flex: 1 },
+  { field: "subject", headerName: "Subject", flex: 1 },
+  { field: "name", headerName: "Name", flex: 1 },
+  { field: "email", headerName: "Email", flex: 1 },
   {
-    field: "startTime",
-    headerName: "Start Time",
-    flex: 1,
-  },
-  {
-    field: "endTime",
-    headerName: "End Time",
+    field: "timeSlot",
+    headerName: "Time Slot",
     flex: 1,
   },
 
   {
-    field: "location",
+    field: "videoLink",
     flex: 1,
-    headerName: "Location",
+    headerName: "Zoom Link",
     renderCell: (params) => <Link href={`${params.value}`}>Zoom Link</Link>,
-  },
-  {
-    field: "payment",
-    flex: 1,
-    headerName: "Payment",
-    sortable: false,
   },
 ];
 
 export default function ViewDieticianAppointmentsPage() {
-  const [rows, setRows] = useState([
-    {
-      id: 1,
-      customer: "laurafu160@gmail.com",
-      staff: "adam@gmail.com",
-      startTime: "2023-01-28 10:30",
-      endTime: "2023-01-28 11:30",
-      location:
-        "zoommtg://zoom.us/join?confno=8529015944&pwd=888999&uname=mick",
-      payment: "$90.00",
-    },
-    {
-      id: 2,
-      customer: "laurafu160@gmail.com",
-      staff: "adam@gmail.com",
-      startTime: "2023-01-28 10:30",
-      endTime: "2023-01-28 11:30",
-      location:
-        "zoommtg://zoom.us/join?confno=8529015944&pwd=888999&uname=mick",
-      payment: "$90.00",
-    },
-    {
-      id: 3,
-      customer: "laurafu160@gmail.com",
-      staff: "adam@gmail.com",
-      startTime: "2023-01-28 10:30",
-      endTime: "2023-01-28 11:30",
-      location:
-        "zoommtg://zoom.us/join?confno=8529015944&pwd=888999&uname=mick",
-      payment: "$90.00",
-    },
-    {
-      id: 4,
-      customer: "laurafu160@gmail.com",
-      staff: "adam@gmail.com",
-      startTime: "2023-01-28 10:30",
-      endTime: "2023-01-28 11:30",
-      location:
-        "zoommtg://zoom.us/join?confno=8529015944&pwd=888999&uname=mick",
-      payment: "$90.00",
-    },
-    {
-      id: 5,
-      customer: "laurafu160@gmail.com",
-      staff: "adam@gmail.com",
-      startTime: "2023-01-28 10:30",
-      endTime: "2023-01-28 11:30",
-      location:
-        "zoommtg://zoom.us/join?confno=8529015944&pwd=888999&uname=mick",
-      payment: "$90.00",
-    },
-    {
-      id: 6,
-      customer: "laurafu160@gmail.com",
-      staff: "adam@gmail.com",
-      startTime: "2023-01-28 10:30",
-      endTime: "2023-01-28 11:30",
-      location:
-        "zoommtg://zoom.us/join?confno=8529015944&pwd=888999&uname=mick",
-      payment: "$90.00",
-    },
-  ]);
+  const { jwtToken } = useStateValues();
+  const { userData } = useStateValues();
+
+  const [rows, setRows] = useState([]);
+
+  const fetchData = () => {
+    axios
+      .get(`http://localhost:8000/api/appointment/fetchAppointments`, {
+        headers: {
+          authorization: `BEARER ${jwtToken}`,
+        },
+      })
+      .then((res) => {
+        const result = res.data.data
+          .map((d) => {
+            if (d.relatedToUser.userRole === userData.userRole) {
+              return {
+                id: d.id,
+                subject: d.subject,
+                role: d.relatedFromUser.userRole,
+                timeSlot: d.timeSlot,
+                name: d.relatedFromUser.firstName,
+                videoLink: d.videoLink,
+                email: d.relatedFromUser.email,
+              };
+            } else {
+              return null;
+            }
+          })
+          .filter((d) => d !== null);
+        setRows(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <Container

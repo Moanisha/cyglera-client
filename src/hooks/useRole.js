@@ -10,7 +10,6 @@ import useStateValues from "./useStateValues";
 const useRole = () => {
   const { userData } = useStateValues();
   const role = userData ? userData.userRole : null;
-  console.log(role);
 
   //getting role from state
   switch (role) {

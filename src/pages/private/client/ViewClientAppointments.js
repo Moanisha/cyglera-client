@@ -50,7 +50,8 @@ export default function ViewClientAppointmentsPage() {
   const [rows, setRows] = useState([]);
   const [openPopup, setOpenPopup] = useState(false);
 
-  useEffect(() => {
+  const fetchData = () => {
+    setOpenPopup(false);
     axios
       .get(`http://localhost:8000/api/appointment/fetchAppointments`, {
         headers: {
@@ -58,29 +59,26 @@ export default function ViewClientAppointmentsPage() {
         },
       })
       .then((res) => {
-        let result = [];
-        res.data.data.map((d) => {
-          let obj = {};
-          obj.id = d.id;
-          obj.subject = d.subject;
-          obj.role = d.User.userRole;
-          obj.timeSlot = d.timeSlot;
-          obj.name = d.User.firstName;
-          obj.videoLink = d.videoLink;
-          obj.email = d.User.email;
-          result.push(obj);
+        const result = res.data.data.map((d) => {
+          return {
+            id: d.id,
+            subject: d.subject,
+            role: d.relatedToUser.userRole,
+            timeSlot: d.timeSlot,
+            name: d.relatedToUser.firstName,
+            videoLink: d.videoLink,
+            email: d.relatedToUser.email,
+          };
         });
         setRows(result);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
-
-  const addOrEdit = (appointment) => {
-    setOpenPopup(false);
-    setRows([...rows, appointment]);
   };
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <Container
@@ -119,7 +117,7 @@ export default function ViewClientAppointmentsPage() {
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
       >
-        <AddAppointmentPage addOrEdit={addOrEdit} />
+        <AddAppointmentPage fetchData={fetchData} />
       </Popup>
     </Container>
   );
