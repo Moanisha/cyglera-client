@@ -9,6 +9,25 @@ import {
   CAREPROVIDER,
 } from "../../helpers/UserRoles";
 import useRole from "../../hooks/useRole";
+import AppointmentsDashboard from "./AppointmentDashboard";
+
+const appointments = [
+  {
+    id: 1,
+    title: "Meeting with John",
+    date: "March 10, 2023",
+    time: "3:00 PM",
+    location: "123 Main St.",
+  },
+  {
+    id: 2,
+    title: "Meeting with Sarah",
+    date: "March 15, 2023",
+    time: "12:00 PM",
+    location: "456 Oak St.",
+  },
+  // more appointments...
+];
 
 const WelcomeUser = () => {
   const userRole = useRole();
@@ -45,6 +64,12 @@ const WelcomeUser = () => {
             <Typography variant="h4">Welcome CAREPROVIDER</Typography>
           </>
         )}
+
+        <div>
+          <h1>My Dashboard</h1>
+          <AppointmentsDashboard appointments={appointments} />
+          {/* more dashboard components... */}
+        </div>
       </ComponentWrapper>
     </>
   );
