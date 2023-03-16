@@ -1,7 +1,6 @@
 import { Typography } from "@mui/material";
 import React from "react";
 import ComponentWrapper from "../../components/private/ComponentWrapper";
-import Dashboard from "../../components/private/dietician/Dashboard";
 import {
   PHYSICIAN,
   CLIENT,
@@ -30,7 +29,6 @@ const appointments = [
   // more appointments...
 ];
 
-
 const WelcomeUser = () => {
   const userRole = useRole();
   return (
@@ -46,8 +44,6 @@ const WelcomeUser = () => {
         {userRole === DIETICIAN && (
           <>
             <Typography variant="h4">Welcome DIETICIAN</Typography>
-            <Dashboard />
-
           </>
         )}
         {/* if role is employee, show employee layout */}

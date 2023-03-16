@@ -1,7 +1,17 @@
-const AppointmentDashboard = () => {
+const AppointmentDashboard = ({ appointments }) => {
   return (
     <div>
-      <h1>Appointment Dashboard</h1>
+      <h2>Appointments</h2>
+      <ul>
+        {appointments.map((appointment) => (
+          <li key={appointment.id}>
+            <div>{appointment.title}</div>
+            <div>{appointment.date}</div>
+            <div>{appointment.time}</div>
+            <div>{appointment.location}</div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
