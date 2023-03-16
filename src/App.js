@@ -45,7 +45,7 @@ const App = () => {
             path="/"
             element={
               <Protected redirect={<SigninPage />}>
-                <Dashboard />
+                {/* <Dashboard /> */}
               </Protected>
             }
           >
@@ -88,7 +88,6 @@ const App = () => {
                     }>
                     <Profile />
                   </DieticianProtected>
-                  
                 </>
               }
             />
