@@ -5,7 +5,13 @@ import Navigation from "../components/private/navigation/Navigation";
 import adminNavList from "../helpers/navItems/AdminNavList";
 import dieticianNavlist from "../helpers/navItems/DieticianNavList";
 import clientNavList from "../helpers/navItems/ClientNavList";
-import { ADMIN, CLIENT, DIETICIAN } from "../helpers/UserRoles";
+import {
+  PHYSICIAN,
+  CLIENT,
+  DIETICIAN,
+  CAREPROVIDER,
+  TRAINER,
+} from "../helpers/UserRoles";
 import useRole from "../hooks/useRole";
 import Footer from "./Footer";
 
@@ -15,9 +21,9 @@ const Dashboard = () => {
     <>
       {/* NavigationBar */}
       {/* if role is admin, show admin layout */}
-      {userRole === ADMIN && (
+      {userRole === TRAINER && (
         <>
-          <Navigation navFeaturesList={adminNavList} />
+          <Navigation navFeaturesList={dieticianNavlist} />
         </>
       )}
       {/* if role is client, show client layout */}
@@ -32,7 +38,16 @@ const Dashboard = () => {
           <Navigation navFeaturesList={dieticianNavlist} />
         </>
       )}
-
+      {userRole === PHYSICIAN && (
+        <>
+          <Navigation navFeaturesList={dieticianNavlist} />
+        </>
+      )}
+      {userRole === CAREPROVIDER && (
+        <>
+          <Navigation navFeaturesList={dieticianNavlist} />
+        </>
+      )}
       {/* this is where different components gets rendered based on url-path */}
       <>
         <Outlet />

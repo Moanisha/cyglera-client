@@ -30,6 +30,9 @@ const SignupComponent = ({
   roles,
   isDietician,
   isClient,
+  isCareProvider,
+  isTrainer,
+  isPhysician,
 }) => {
   const [open, setOpen] = React.useState(false);
   const [checked, setChecked] = React.useState(false);
@@ -266,7 +269,7 @@ const SignupComponent = ({
             display: { md: "flex", sm: "flex", xs: "none" },
           }}
         >
-          {isDietician ? (
+          {isDietician | isTrainer | isPhysician | isCareProvider ? (
             <DieticianFields
               state={state}
               errorState={errorState}
@@ -498,7 +501,9 @@ const SignupComponent = ({
         <Grid item xs={12}>
           <div>
             <span>I agree to the liability form - </span>
-            <Button onClick={handleClickOpen}>Waiver of Liability Form</Button>
+            <Button onClick={handleClickOpen}>
+              {isClient ? "Consent Form" : "Waiver of Liability Form"}
+            </Button>
             <Checkbox
               checked={checked}
               onChange={handleCheckChange}

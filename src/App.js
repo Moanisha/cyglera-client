@@ -13,7 +13,7 @@ import Loader from "./helpers/Loader";
 import { createTheme, CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 
-import ViewAppointmentsPage from "./pages/private/dietician/ViewAppointments";
+import ViewDieticianAppointmentsPage from "./pages/private/dietician/ViewDieticianAppointments";
 import WelcomeUser from "./pages/private/WelcomeUser";
 import DieticianProtected from "./helpers/routeProtecter/DieticianProtected";
 import ClientProtected from "./helpers/routeProtecter/ClientProtected";
@@ -21,6 +21,7 @@ import RecipesPage from "./pages/private/dietician/Recipes";
 import Recipe from "./components/private/dietician/Recipe";
 import Profile from "./components/private/profile";
 import AddRecipeForm from "./components/private/dietician/AddRecipe";
+import ViewClientAppointmentsPage from "./pages/private/client/ViewClientAppointments";
 
 const App = () => {
   const theme = createTheme({
@@ -50,11 +51,19 @@ const App = () => {
             }
           >
             <Route
+              path="client-appointments"
+              element={
+                <ClientProtected redirect={<WelcomeUser />}>
+                  <ViewClientAppointmentsPage />
+                </ClientProtected>
+              }
+            />
+            <Route
               path="appointments"
               element={
-                <DieticianProtected redirect={<WelcomeUser />}>
-                  <ViewAppointmentsPage />
-                </DieticianProtected>
+                <Protected redirect={<WelcomeUser />}>
+                  <ViewDieticianAppointmentsPage />
+                </Protected>
               }
             />
 
@@ -80,18 +89,19 @@ const App = () => {
               path="profile"
               element={
                 <>
-                  <DieticianProtected redirect=
-                    {
+                  <DieticianProtected
+                    redirect={
                       <ClientProtected redirect={<WelcomeUser />}>
                         <Profile />
                       </ClientProtected>
-                    }>
+                    }
+                  >
                     <Profile />
                   </DieticianProtected>
                 </>
               }
             />
-            
+
             <Route
               path="addrecipes"
               element={
