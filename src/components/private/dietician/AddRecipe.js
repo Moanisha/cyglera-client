@@ -1,43 +1,97 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import axios from 'axios';
+import { Alert } from "reactstrap";
+
+const getType = {
+  userName: '',
+  email: '',
+  recipeName: '',
+  summary: '',
+  imgUrl: '',
+  ingredients: '',
+  instructions: '',
+  benefits: '',
+  prepTime: '',
+  cookTime: '',
+  totalTime: '',
+  carbohydrates: '',
+  calories: '',
+  protein: '',
+  fat: '',
+  courses: '',
+  cuisines: ''
+}
 
 const AddRecipeForm =() => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [recipeName, setRecipeName] = useState('');
-  const [summary, setSummary] = useState('');
-  const [image, setImage] = useState('');
-  const [ingredients, setIngredients] = useState('');
-  const [instructions, setInstructions] = useState('');
-  const [essentialIngrediants, setEssentialIngrediants] = useState('');
-  const [cookTime, setCookTime] = useState('');
-  const [prepTime, setPrepTime] = useState('');
-  const [totalTime, setTotalTime] = useState('');
-  const [carbohydrates, setCarbohydrates] = useState('');
-  const [calories, setCalories] = useState('');
-  const [protein, setProtien] = useState('');
-  const [fat, setFat] = useState('');
-  const [courses, setCourses] = useState('');
-  const [cuisine, setCuisine] = useState('');
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const [formData, setFormData] = useState(getType);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  // const [userName, setName] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [recipeName, setRecipeName] = useState('');
+  // const [summary, setSummary] = useState('');
+  // const [image, setImage] = useState('');
+  // const [ingredients, setIngredients] = useState('');
+  // const [instructions, setInstructions] = useState('');
+  // const [essentialIngrediants, setEssentialIngrediants] = useState('');
+  // const [cookTime, setCookTime] = useState('');
+  // const [prepTime, setPrepTime] = useState('');
+  // const [totalTime, setTotalTime] = useState('');
+  // const [carbohydrates, setCarbohydrates] = useState('');
+  // const [calories, setCalories] = useState('');
+  // const [protein, setProtien] = useState('');
+  // const [fat, setFat] = useState('');
+  // const [courses, setCourses] = useState('');
+  // const [cuisine, setCuisine] = useState('');
 
-    // handle form submission here
+
+    //rouite to submit form
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    axios.post('http://localhost:8000/addRecipe', formData)
+  .then(res => {    
+    if(res.data===true)
+            {
+                setSuccessMessage("Recipe submitted successfully!");
+                setIsOpen(true);
+            }
+            else{
+                setSuccessMessage("Form Submission Failed: Invalid data entered. Please check the information you have entered and try again.");
+                setIsOpen(true);
+            }
+            console.log(res.data);
+    // do something with the response, e.g. show a success message
+  })
+  .catch(error => {
+    console.log(error);
+    // handle the error, e.g. show an error message
+  });
+  }
+    // creating function for any changes in form fields
+    const handleChange = (e) => {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  // creating function for any changes in textarea field
+  const handleChangeTextArea = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+ 
   return (
     <div className='container my-5'>
     <Form onSubmit={handleSubmit}>
         <h3>Submit Your Own Recipe</h3><br/>
-      <Form.Group controlId="name">
+      <Form.Group controlId="userName">
         <Form.Label className="font-weight-bold">Name<span style={{color:"red"}}>*</span></Form.Label>
         <Form.Control
           type="text"
           placeholder="Enter your name"
-          value={name}
-          onChange={(event) => setName(event.target.value)}
+          name="userName"
+          onChange={handleChange}
         />
       </Form.Group><br/>
 
@@ -46,8 +100,8 @@ const AddRecipeForm =() => {
         <Form.Control
           type="email"
           placeholder="Enter email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
+          name="email"
+          onChange={handleChange}
         />
       </Form.Group><br/>
       <h4>Recipe Essentials</h4><br/>
@@ -57,8 +111,8 @@ const AddRecipeForm =() => {
         <Form.Control
           type="text"
           placeholder="Enter recipe name"
-          value={recipeName}
-          onChange={(event) => setRecipeName(event.target.value)}
+          name="recipeName"
+          onChange={handleChange} 
         />
       </Form.Group><br/>
 
@@ -67,8 +121,8 @@ const AddRecipeForm =() => {
         <Form.Control
           as="textarea"
           placeholder="Enter recipe summary"
-          value={summary}
-          onChange={(event) => setSummary(event.target.value)}
+          name="summary"
+          onChange={handleChangeTextArea} 
           />
           </Form.Group><br/>
 
@@ -77,7 +131,8 @@ const AddRecipeForm =() => {
            <input type="file"
             id="custom-file" 
             label="Choose file"
-            onChange={(event) => setImage(event.target.files[0])}
+            name="summary"
+            onChange={handleChange} 
             custom
           />
         </Form.Group><br/>
@@ -88,8 +143,8 @@ const AddRecipeForm =() => {
             as="textarea"
             rows={3}
             placeholder="Enter recipe ingredients"
-            value={ingredients}
-            onChange={(event) => setIngredients(event.target.value)}
+            name="ingredients"
+            onChange={handleChangeTextArea} 
           />
         </Form.Group><br/>
       
@@ -99,37 +154,38 @@ const AddRecipeForm =() => {
             as="textarea"
             rows={3}
             placeholder="Enter recipe instructions"
-            value={instructions}
-            onChange={(event) => setInstructions(event.target.value)}
+            name="instructions"
+            onChange={handleChangeTextArea} 
           />
         </Form.Group><br/>
-            <Form.Group controlId="essentialIngrediants">
+            <Form.Group controlId="benefits">
             <Form.Label className="font-weight-bold">Breakdown of Essential Ingrediants</Form.Label>
             <Form.Control
             as="textarea"
             rows={3}
             placeholder="Enter recipe Essential Ingrediants"
-            value={essentialIngrediants}
-            onChange={(event) => setEssentialIngrediants(event.target.value)}
+            name="benefits"
+            onChange={handleChangeTextArea} 
             />
             </Form.Group><br/>
         <h4>Recipe Details</h4><br/>
-        <Form.Group controlId="prepTime">
-          <Form.Label className="font-weight-bold">Prep time</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter recipe prep time"
-            value={prepTime}
-            onChange={(event) => setCookTime(event.target.value)}
-          />
-        </Form.Group><br/>
+        
         <Form.Group controlId="cookTime">
           <Form.Label className="font-weight-bold">Cook time</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter recipe cook time"
-            value={cookTime}
-            onChange={(event) => setCookTime(event.target.value)}
+            name="cookTime"
+            onChange={handleChange}
+          />
+        </Form.Group><br/>
+        <Form.Group controlId="prepTime">
+          <Form.Label className="font-weight-bold">Prep time</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter recipe prep time"
+            name="prepTime"
+            onChange={handleChange} 
           />
         </Form.Group><br/>
       
@@ -138,8 +194,8 @@ const AddRecipeForm =() => {
           <Form.Control
             type="text"
             placeholder="Enter recipe Total cook time"
-            value={totalTime}
-            onChange={(event) => setTotalTime(event.target.value)}
+            name="totalTime"
+            onChange={handleChange}
           />
         </Form.Group><br/>
         <h4>Nutritional Facts</h4><br/>
@@ -150,8 +206,8 @@ const AddRecipeForm =() => {
                 <Form.Control
                     type="text"
                     placeholder="10g"
-                    value={carbohydrates}
-                    onChange={(event) => setCarbohydrates(event.target.value)}
+                    name="carbohydrates"
+                    onChange={handleChange} 
                  />
                 </Form.Group><br/>
             </div>
@@ -161,8 +217,8 @@ const AddRecipeForm =() => {
                 <Form.Control
                     type="text"
                     placeholder="100cal"
-                    value={calories}
-                    onChange={(event) => setCalories(event.target.value)}
+                    name="calories"
+                    onChange={handleChange}
                 />
                 </Form.Group><br/>
             </div>
@@ -172,8 +228,8 @@ const AddRecipeForm =() => {
                     <Form.Control
                         type="text"
                         placeholder="20g"
-                        value={protein}
-                        onChange={(event) => setProtien(event.target.value)}
+                        name="protein"
+                        onChange={handleChange} 
                     />
                     </Form.Group><br/>
             </div>
@@ -183,36 +239,36 @@ const AddRecipeForm =() => {
                 <Form.Control
                     type="text"
                     placeholder="5g"
-                    value={fat}
-                    onChange={(event) => setFat(event.target.value)}
+                    name="fat"
+                    onChange={handleChange} 
                 />
                 </Form.Group><br/>
             </div>
         </div>
-        
-          
-        
-        
+
         <Form.Group controlId="courses">
           <Form.Label className="font-weight-bold">Courses</Form.Label>
           <Form.Control
             type="text"
-            value={courses}
-            onChange={(event) => setCourses(event.target.value)}
+            name="courses"
+            onChange={handleChange} 
           />
         </Form.Group><br/>
         <Form.Group controlId="cuisines">
           <Form.Label className="font-weight-bold">Cuisines</Form.Label>
           <Form.Control
             type="text"
-            value={cuisine}
-            onChange={(event) => setCuisine(event.target.value)}
+            name="cuisines"
+            onChange={handleChange} 
           />
         </Form.Group><br/>
         <br/>
         <Button variant="primary" type="submit">
           Submit Recipe
         </Button>
+        <Alert color="success" isOpen={isOpen} toggle={() => setIsOpen(!isOpen)}>
+                                {successMessage}
+        </Alert> 
         {/* <a
                         href="/recipes"
                         className="btn btn-sm btn-primary"
@@ -225,4 +281,4 @@ const AddRecipeForm =() => {
       );
     }
     
-    export default AddRecipeForm;      
+    export default AddRecipeForm;  
