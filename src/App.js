@@ -67,21 +67,29 @@ const App = () => {
               }
             />
 
-            <Route
+            {/* <Route
               path="recipes"
               element={
                 <DieticianProtected redirect={<WelcomeUser />}>
                   <RecipesPage />
                 </DieticianProtected>
               }
+            /> */}
+            <Route
+              path="recipes"
+              element={
+                <Protected redirect={<WelcomeUser />}>
+                  <RecipesPage />
+                </Protected>
+              }
             />
 
             <Route
               path="recipes/:recipe_id"
               element={
-                <DieticianProtected redirect={<WelcomeUser />}>
+                <Protected redirect={<WelcomeUser />}>
                   <Recipe />
-                </DieticianProtected>
+                </Protected>
               }
             />
 
