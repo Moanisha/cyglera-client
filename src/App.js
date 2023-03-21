@@ -88,17 +88,9 @@ const App = () => {
             <Route
               path="profile"
               element={
-                <>
-                  <DieticianProtected
-                    redirect={
-                      <ClientProtected redirect={<WelcomeUser />}>
-                        <Profile />
-                      </ClientProtected>
-                    }
-                  >
-                    <Profile />
-                  </DieticianProtected>
-                </>
+                <Protected redirect={<WelcomeUser />}>
+                   <Profile />
+                </Protected>
               }
             />
 
