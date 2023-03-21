@@ -47,6 +47,10 @@ const AddRecipeForm =() => {
   // const [courses, setCourses] = useState('');
   // const [cuisine, setCuisine] = useState('');
 
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    setFormData((prevFormData) => ({ ...prevFormData, imgUrl: file }));
+  };
 
     //rouite to submit form
   const handleSubmit = (e) => {
@@ -131,8 +135,8 @@ const AddRecipeForm =() => {
            <input type="file"
             id="custom-file" 
             label="Choose file"
-            name="summary"
-            onChange={handleChange} 
+            name="imgUrl"
+            onChange={handleImageChange} 
             custom
           />
         </Form.Group><br/>

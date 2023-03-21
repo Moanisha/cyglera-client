@@ -36,3 +36,25 @@
     transform: rotate(360deg);
   }
 }
+
+.hr-line{
+  position: relative;
+  max-width: 500px;
+  margin: 100px auto;
+}
+.hr-lines:after{
+  content:" ";
+  height: 2px;
+  width: auto;
+  background: red;
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 0;
+}
+
+@media print {
+  header, footer {
+    display: none;
+  }
+}
