@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import useStateValues from "../../../hooks/useStateValues";
 
 import useRole from "../../../hooks/useRole";
 
@@ -30,7 +32,7 @@ const recipe = [
     },
     {
       id: 2,
-      title: "Lemon Couscous with brocoli and Tuna",
+      title: "Lemon Couscous with Broccoli and Tuna",
       imageUrl: LemonCouscous,
       ingredients: ["ingredient 4", "ingredient 5", "ingredient 6"],
     },
@@ -41,73 +43,73 @@ const recipe = [
       ingredients: ["ingredient 7", "ingredient 8", "ingredient 9"],
     },
     {
-      id: 1,
+      id: 4,
       title: "Garlic Roasted Chicken",
       imageUrl: GarlicRoastedChicken,
       ingredients: ["ingredient 1", "ingredient 2", "ingredient 3"],
     },
     {
-      id: 2,
+      id: 5,
       title: "Broccoli Salad",
       imageUrl: BroccoliSalad,
       ingredients: ["ingredient 4", "ingredient 5", "ingredient 6"],
     },
     {
-      id: 3,
+      id: 6,
       title: "Beet Smoothie",
       imageUrl: BeetSmoothie,
       ingredients: ["ingredient 7", "ingredient 8", "ingredient 9"],
     },
     {
-      id: 1,
+      id: 7,
       title: "Vegetable Quinoa Bowl",
       imageUrl: Vegetablebowl,
       ingredients: ["ingredient 1", "ingredient 2", "ingredient 3"],
     },
     {
-      id: 2,
+      id: 8,
       title: "Cucumber, Tomato and Avocado Salad",
       imageUrl: CucumberSalad,
       ingredients: ["ingredient 4", "ingredient 5", "ingredient 6"],
     },
     {
-      id: 3,
+      id: 9,
       title: "Pumpkin Overnight Oatmeal",
       imageUrl: PumpkinOatmeal,
       ingredients: ["ingredient 7", "ingredient 8", "ingredient 9"],
     },
     {
-        id: 3,
+        id: 10,
         title: "Spaghetti-Squash-and-Tomato-Sauce",
         imageUrl: SpaghettiSquash,
         ingredients: ["ingredient 7", "ingredient 8", "ingredient 9"],
       },
       {
-        id: 3,
+        id: 11,
         title: "Chickpea-and-Quinoa-Bowl.png",
         imageUrl: Chickpea,
         ingredients: ["ingredient 7", "ingredient 8", "ingredient 9"],
       },
       {
-        id: 3,
+        id: 12,
         title: "Mango-Peach-Smoothie",
         imageUrl: MangoPeach,
         ingredients: ["ingredient 7", "ingredient 8", "ingredient 9"],
       },
       {
-        id: 3,
+        id: 13,
         title: "Grilled-Fish-Tacos",
         imageUrl: GrilledFishTacos,
         ingredients: ["ingredient 7", "ingredient 8", "ingredient 9"],
       },
       {
-        id: 3,
+        id: 14,
         title: "Shrimp-Bowl",
         imageUrl: ShrimpBowl,
         ingredients: ["ingredient 7", "ingredient 8", "ingredient 9"],
       },
       {
-        id: 3,
+        id: 15,
         title: "Mango-Raspberry-Smoothie",
         imageUrl: MangoRaspberrySmothie,
         ingredients: ["ingredient 7", "ingredient 8", "ingredient 9"],
@@ -115,6 +117,33 @@ const recipe = [
   ];
 const Recipes = () => {
   const userRole = useRole();
+  const i=0;
+
+  const [recipeNames,setRecipeNames]= useState([]);
+  // const navigate = useNavigate();
+  // const navigateTo = (title: String) => {
+  //   navigate("/recipes/:recipe_id", { state: { name: name } });
+  // };
+
+  useEffect(() => {
+    console.log("inside ue effect");
+    axios.get('http://localhost:8000/api/auth/fetchAllRecipes')
+      .then(res => {
+        console.log("after get method")
+        console.log(res.data);
+        setRecipeNames(res.data);
+      }
+      )
+      .catch(err => console.log(err));
+    }, []);
+
+    // recipeNames.map(recipe => (
+      
+    //     console.log(recipe.recipeName)
+    // ))
+        
+    // console.log(recipeNames.recipeName)
+
     return (
 
     <div className="container">
@@ -130,26 +159,27 @@ const Recipes = () => {
             )}
         </div>     
       </div> 
-        <div className="row">
-      {recipe.map((item) => (
-        <div className="col-md-4 my-4" key={item.id}>
+      <div className="row">
+      {recipe.map((item1) => (
+        // {recipeNames.map((item2) => ( 
+        <div className="col-md-4 my-4" key={item1.id}>
           <div className="card">
             <div className="card-image">
-             <img width='100%' src={item.imageUrl} alt={item.title}/>
-             <div className="card-title">
-              <a href="/recipes/:recipe_id" style={{ color: 'black', textDecoration: 'none' }}><b>{item.title}</b></a>
-          {/* <Card>
-            <CardImg top width="100%" src={item.imageUrl} alt={item.title} />
-            <CardBody>
-              <CardTitle>{item.title}</CardTitle>
-            </CardBody>
-          </Card> */}
-          </div>
+             <img width='100%' src={item1.imageUrl} alt={item1.title}/>
+             {recipeNames.filter((item2) => item2.recipeName === item1.title).map((item2) => (
+                  <div className="card-title">
+                    <a className="btn" href="/recipes/:recipe_id" style={{ color: 'black', textDecoration: 'none' }}><b>{item2.recipeName}</b></a>
+                    {console.log(item2)}
+                  </div>
+                 ))}  
           </div>
         </div>
         </div>
-        ))}
+        
+        ))} 
         </div>
+
+
         </div>
        
     )
