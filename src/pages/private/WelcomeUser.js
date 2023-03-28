@@ -66,7 +66,7 @@ const WelcomeUser = () => {
         )}
 
         <div>
-          <h1>My Dashboard</h1>
+          <h3>My Dashboard</h3>
           <AppointmentsDashboard appointments={appointments} />
           {/* more dashboard components... */}
         </div>

@@ -20,6 +20,7 @@ import ClientProtected from "./helpers/routeProtecter/ClientProtected";
 import RecipesPage from "./pages/private/dietician/Recipes";
 import Recipe from "./components/private/dietician/Recipe";
 import Profile from "./components/private/profile";
+import AppointmentDashboard from "./pages/private/AppointmentDashboard";
 import AddRecipeForm from "./components/private/dietician/AddRecipe";
 import ViewClientAppointmentsPage from "./pages/private/client/ViewClientAppointments";
 
@@ -101,6 +102,14 @@ const App = () => {
                 </Protected>
               }
             />
+            {/* <Route
+              path="dashboard"
+              element={
+                <Protected redirect={<WelcomeUser />}>
+                   <AppointmentDashboard />
+                </Protected>
+              }
+            /> */}
 
             <Route
               path="addrecipes"
