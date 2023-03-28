@@ -3,6 +3,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import { Alert } from "reactstrap";
+import useStateValues from "../../../hooks/useStateValues";
+
 
 const getType = {
   userName: '',
@@ -26,26 +28,20 @@ const getType = {
 
 const AddRecipeForm =() => {
 
+  const { userData } = useStateValues();
+  console.log(userData);
+ 
+  const [fetchUserInfo, setFetchUserInfo] = useState(
+    {
+      userName: userData.firstName,
+      email: userData.email,
+    }
+    );
+
   const [formData, setFormData] = useState(getType);
   const [successMessage, setSuccessMessage] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  // const [userName, setName] = useState('');
-  // const [email, setEmail] = useState('');
-  // const [recipeName, setRecipeName] = useState('');
-  // const [summary, setSummary] = useState('');
-  // const [image, setImage] = useState('');
-  // const [ingredients, setIngredients] = useState('');
-  // const [instructions, setInstructions] = useState('');
-  // const [essentialIngrediants, setEssentialIngrediants] = useState('');
-  // const [cookTime, setCookTime] = useState('');
-  // const [prepTime, setPrepTime] = useState('');
-  // const [totalTime, setTotalTime] = useState('');
-  // const [carbohydrates, setCarbohydrates] = useState('');
-  // const [calories, setCalories] = useState('');
-  // const [protein, setProtien] = useState('');
-  // const [fat, setFat] = useState('');
-  // const [courses, setCourses] = useState('');
-  // const [cuisine, setCuisine] = useState('');
+  const [editMode, setEditMode] = useState(false);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -96,6 +92,7 @@ const AddRecipeForm =() => {
           placeholder="Enter your name"
           name="userName"
           onChange={handleChange}
+          defaultValue={userData.firstName} disabled={!editMode}
         />
       </Form.Group><br/>
 
@@ -106,6 +103,7 @@ const AddRecipeForm =() => {
           placeholder="Enter email"
           name="email"
           onChange={handleChange}
+          defaultValue={userData.email} disabled={!editMode}
         />
       </Form.Group><br/>
       <h4>Recipe Essentials</h4><br/>
@@ -130,7 +128,7 @@ const AddRecipeForm =() => {
           />
           </Form.Group><br/>
 
-          <Form.Group controlId="image">
+          <Form.Group controlId="imgUrl">
            <Form.Label className="font-weight-bold">Image<span style={{color:"red"}}>*</span></Form.Label><br/>
            <input type="file"
             id="custom-file" 
@@ -273,13 +271,7 @@ const AddRecipeForm =() => {
         <Alert color="success" isOpen={isOpen} toggle={() => setIsOpen(!isOpen)}>
                                 {successMessage}
         </Alert> 
-        {/* <a
-                        href="/recipes"
-                        className="btn btn-sm btn-primary"
-                        style={{ borderRadius: "0 30px 30px 0" }}
-                      >
-                        Book Now
-                      </a> */}
+        
       </Form>
       </div>
       );
