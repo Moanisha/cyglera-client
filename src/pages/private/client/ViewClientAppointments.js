@@ -41,7 +41,12 @@ const columns = [
     field: "videoLink",
     flex: 1,
     headerName: "Zoom Link",
-    renderCell: (params) => <Link href={`${params.value}`}>Zoom Link</Link>,
+    renderCell: (params) => {
+      if (!params.value) {
+        return <span>Appointment yet to be confirmed</span>;
+      }
+      return <Link href={`${params.value}`}>{params.value}</Link>;
+    },
   },
 ];
 
@@ -109,7 +114,6 @@ export default function ViewClientAppointmentsPage() {
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[5]}
-          checkboxSelection
         />
       </ThemeProvider>
       <Popup
