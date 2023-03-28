@@ -119,6 +119,14 @@ const App = () => {
                 </DieticianProtected>
               }
             />
+            <Route
+              path="clients"
+              element={
+                <Protected redirect={<WelcomeUser />}>
+                  {/* <RecipesPage /> */}
+                </Protected>
+              }
+            />
             <Route path="" element={<WelcomeUser />} />
 
             <Route path="*" element={<WelcomeUser />} />

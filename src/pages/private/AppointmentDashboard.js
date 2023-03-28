@@ -47,14 +47,14 @@ const AppointmentDashboard = ({ appointments }) => {
           </tr>
         </thead>
         <tbody>
-          {appointments.map((appointment) => (
-            <tr key={appointment.id}>
-              <td>{appointment.title}</td>
-              <td>{appointment.date}</td>
-              <td>{appointment.time}</td>
-              <td>{appointment.location}</td>
+          {/* {dashboarddetails.map((appointment) => ( */}
+            <tr key={dashboarddetails.id}>
+              <td>{dashboarddetails.subject}</td>
+              <td>{dashboarddetails.appointmentDate}</td>
+              <td>{dashboarddetails.timeSlot}</td>
+              <td>{dashboarddetails.videoLink}</td>
             </tr>
-          ))}
+          {/* ))} */}
         </tbody>
       </table>
     </div>
