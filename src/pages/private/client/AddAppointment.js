@@ -46,6 +46,7 @@ export default function AddAppointmentPage(props) {
           relatedFrom,
           newSlots,
           roleId,
+          tomorrowFormatted,
         },
         {
           headers: {
