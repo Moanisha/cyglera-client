@@ -120,16 +120,16 @@ const Recipes = () => {
   const i=0;
 
   const [recipeNames,setRecipeNames]= useState([]);
-  // const navigate = useNavigate();
-  // const navigateTo = (title: String) => {
-  //   navigate("/recipes/:recipe_id", { state: { name: name } });
-  // };
+  const navigate = useNavigate();
+  const navigateTo = (recipeName) => {
+    navigate("/recipes/:recipeName", { state: { name: recipeName } });
+  };
 
   useEffect(() => {
     console.log("inside ue effect");
     axios.get('http://localhost:8000/api/auth/fetchAllRecipes')
       .then(res => {
-        console.log("after get method")
+        console.log("after get method");
         console.log(res.data);
         setRecipeNames(res.data);
       }
@@ -168,7 +168,7 @@ const Recipes = () => {
              <img width='100%' src={item1.imageUrl} alt={item1.title}/>
              {recipeNames.filter((item2) => item2.recipeName === item1.title).map((item2) => (
                   <div className="card-title">
-                    <a className="btn" href="/recipes/:recipe_id" style={{ color: 'black', textDecoration: 'none' }}><b>{item2.recipeName}</b></a>
+                    <a className="btn" href="/recipes/:recipeName" onClick={() => navigateTo(item2.recipeName)} style={{ color: 'black', textDecoration: 'none' }}><b>{item2.recipeName}</b></a>
                     {console.log(item2)}
                   </div>
                  ))}  
