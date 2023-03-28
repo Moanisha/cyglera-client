@@ -28,7 +28,8 @@ function Profile() {
   const [slots, setSlots] = useState([
     "9 AM - 10 AM",
     "10 AM - 11 AM",
-    "11 AM - 12 AM",
+    "11 AM - 12 PM",
+    "12 PM - 1 PM",
     "1 PM - 2 PM",
     "2 PM - 3 PM",
     "3 PM - 4 PM",
@@ -301,13 +302,14 @@ function Profile() {
                           <h6 className="mb-0">Available Slots</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
-                          <div>
+                          <div disabled={!editMode}>
                             <Multiselect
                               isObject={false}
                               options={slots}
                               showCheckbox
                               onSelect={handleSelect}
                               onRemove={handleRemove}
+                              disable={!editMode}
                             />
                           </div>
                         </div>
