@@ -6,24 +6,34 @@ import { Alert } from "reactstrap";
 import axios from 'axios';
 import useStateValues from "../../hooks/useStateValues";
 import { Form } from 'react-bootstrap';
+import Multiselect from "multiselect-react-dropdown";
 
 function Profile() {
   const userRole = useRole();
   const { userData } = useStateValues();
+  // console.log(userData);
  
   const [fetchInfo, setFetchInfo] = useState(
     {
       userRole: userRole,
       email: userData.email,
     }
-    );
+  );
  
   const [userdetails, setUserDetails] = useState([]);
   const [formData, setFormData] = useState({userRole: userRole});
   const [successMessage, setSuccessMessage] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  console.log(editMode);
+  const [slots, setSlots] = useState([
+    "9 AM - 10 AM",
+    "10 AM - 11 AM",
+    "11 AM - 12 AM",
+    "1 PM - 2 PM",
+    "2 PM - 3 PM",
+    "3 PM - 4 PM",
+    "4 PM - 5 PM",
+  ]);
   useEffect(() => {
     axios.post('http://localhost:8000/api/auth/fetchprofile', fetchInfo)
       .then(res => {
@@ -66,16 +76,18 @@ function Profile() {
       const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-
-    function handleSelectChange(event) {
-      const selectedOptions = Array.from(event.target.selectedOptions, option => option.value);
-      setFormData({ test: selectedOptions });
-    }
-
-    function handleSaveClick() {
-      console.log(formData); // You can use formData here
-    }
     const [show, setShow] = useState(true);
+
+    const handleSelect = (selectedList, selectedItem) => {
+      const updatedFormData = { ...formData, availableSlots: selectedList };
+      setFormData(updatedFormData);
+    }
+  
+    const handleRemove = (selectedList, removedItem) => {
+      const updatedFormData = { ...formData, availableSlots: selectedList };
+      setFormData(updatedFormData);
+    }
+
   return (
     <div className="container my-5">
       <div className="main-body p-5">
@@ -192,7 +204,7 @@ function Profile() {
                     <input type="text" className='form-control col-sm-9 text-secondary' name='gender' onChange={handleChange} placeholder='Gender' defaultValue={userdetails.gender} disabled={!editMode}/>
                   </div>
                 </div>
-                <hr />
+                {/* <hr />
                 <div className="row">
                   <div className="col-sm-3">
                     <h6 className="mb-0">Date of Birth</h6>
@@ -200,7 +212,7 @@ function Profile() {
                   <div className="col-sm-9 text-secondary">
                     <input type="date" className='form-control col-sm-9 text-secondary' name='dateofbirth' placeholder='Date of Birth'/>
                   </div>
-                </div>
+                </div> */}
                 <hr />
                 <div className="row">
                   <div className="col-sm-3">
@@ -229,83 +241,78 @@ function Profile() {
                   </div>
                 </div>
                 {userRole !== CLIENT && (
+                <div>
                   <div>
-                <div>
-                  <hr/>
-                  <div className="row">
-                    
-                    <div className="col-sm-3">
-                      <h6 className="mb-0">Area of Focus</h6>
-                    </div>
-                    <div className="col-sm-9 text-secondary">
-                      <input type="text" className='form-control col-sm-9 text-secondary' name='areaOfFocus' onChange={handleChange} placeholder='Area of Focus' defaultValue={userdetails.areaOfFocus} disabled={!editMode}/>
-                    </div>
-                  </div>
-                </div>
-
-            <div>
-            <hr/>
-            <div className="row">
-              
-              <div className="col-sm-3">
-                <h6 className="mb-0">Professional Summary</h6>
-              </div>
-              <div className="col-sm-9 text-secondary">
-                <input type="text" className='form-control col-sm-9 text-secondary' name='professionalSummary' onChange={handleChange} placeholder='professional summary' defaultValue={userdetails.professionalSummary} disabled={!editMode}/>
-              </div>
-            </div>
-            </div>
-
-            <div>
-                  <hr/>
-                  <div className="row">
-                    
-                    <div className="col-sm-3">
-                      <h6 className="mb-0">Professional Approach</h6>
-                    </div>
-                    <div className="col-sm-9 text-secondary">
-                      <input type="text" className='form-control col-sm-9 text-secondary' name='professionalApproach' onChange={handleChange} placeholder='professional approach' defaultValue={userdetails.professionalApproach} disabled={!editMode}/>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <hr/>
-                  <div className="row">
-                    
-                    <div className="col-sm-3">
-                      <h6 className="mb-0">Years Of Experience</h6>
-                    </div>
-                    <div className="col-sm-9 text-secondary">
-                      <input type="text" className='form-control col-sm-9 text-secondary' name='yearsOfExperience' onChange={handleChange} placeholder='Years of Experience' defaultValue={userdetails.yearsOfExperience} disabled={!editMode}/>
-                    </div>
-                  </div>
-                </div>
-                
-                
-                  {/* <div>
                     <hr/>
                     <div className="row">
-                    <div className="col-sm-3">
-                        <h6 className="mb-0">Available Slots</h6>
+                      
+                      <div className="col-sm-3">
+                        <h6 className="mb-0">Area of Focus</h6>
                       </div>
-                    <div className="col-sm-9 text-secondary">
+                      <div className="col-sm-9 text-secondary">
+                        <input type="text" className='form-control col-sm-9 text-secondary' name='areaOfFocus' onChange={handleChange} placeholder='Area of Focus' defaultValue={userdetails.areaOfFocus} disabled={!editMode}/>
+                      </div>
+                    </div>
+                  </div>
+
+                <div>
+                <hr/>
+                <div className="row">
+                  
+                  <div className="col-sm-3">
+                    <h6 className="mb-0">Professional Summary</h6>
+                  </div>
+                  <div className="col-sm-9 text-secondary">
+                    <input type="text" className='form-control col-sm-9 text-secondary' name='professionalSummary' onChange={handleChange} placeholder='professional summary' defaultValue={userdetails.professionalSummary} disabled={!editMode}/>
+                  </div>
+                </div>
+                </div>
+
+                <div>
+                      <hr/>
+                      <div className="row">
+                        
+                        <div className="col-sm-3">
+                          <h6 className="mb-0">Professional Approach</h6>
+                        </div>
+                        <div className="col-sm-9 text-secondary">
+                          <input type="text" className='form-control col-sm-9 text-secondary' name='professionalApproach' onChange={handleChange} placeholder='professional approach' defaultValue={userdetails.professionalApproach} disabled={!editMode}/>
+                        </div>
+                      </div>
+                    </div>
                     <div>
-                    <Form>
-                      <Form.Select multiple onChange={handleSelectChange}>
-                        <option value="1">Option 1</option>
-                        <option value="2">Option 2</option>
-                        <option value="3">Option 3</option>
-                        <option value="4">Option 4</option>
-                        <option value="5">Option 5</option>
-                      </Form.Select>
-                      <div>
-                        Selected values: {}
+                      <hr/>
+                      <div className="row">
+                        
+                        <div className="col-sm-3">
+                          <h6 className="mb-0">Years Of Experience</h6>
+                        </div>
+                        <div className="col-sm-9 text-secondary">
+                          <input type="text" className='form-control col-sm-9 text-secondary' name='yearsOfExperience' onChange={handleChange} placeholder='Years of Experience' defaultValue={userdetails.yearsOfExperience} disabled={!editMode}/>
+                        </div>
                       </div>
-                    </Form>
+                    </div>
+                  
+                  
+                    <div>
+                      <hr/>
+                      <div className="row">
+                        <div className="col-sm-3">
+                          <h6 className="mb-0">Available Slots</h6>
+                        </div>
+                        <div className="col-sm-9 text-secondary">
+                          <div>
+                            <Multiselect
+                              isObject={false}
+                              options={slots}
+                              showCheckbox
+                              onSelect={handleSelect}
+                              onRemove={handleRemove}
+                            />
+                          </div>
+                        </div>
+                      </div>
                   </div>
-                  </div>
-                  </div>
-                  </div> */}
 
                 </div>
                 
@@ -538,17 +545,17 @@ function Profile() {
                   </>
                 ):(
                   <>
-                  <div className="row ">
-                  <div className="col-sm-12 d-flex justify-content-center">
-                    <a
-                      className="btn btn-info"
-                      target="__blank"
-                      onClick={handleSubmit}
-                    >
-                      Update Profile
-                    </a>
-                  </div>
-                </div>
+                    <div className="row ">
+                      <div className="col-sm-12 d-flex justify-content-center">
+                        <a
+                          className="btn btn-info"
+                          target="__blank"
+                          onClick={handleSubmit}
+                        >
+                          Update Profile
+                        </a>
+                      </div>
+                    </div>
                   </>
                 )}
                 {/* <div className="row ">
