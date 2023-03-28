@@ -1,18 +1,33 @@
-import {React, useEffect} from "react";
+import {React, useEffect, useState} from "react";
+import axios from 'axios';
+import { useLocation } from "react-router-dom";
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import "../../../App.css";
 
-const Recipe = () => {
+import useRole from "../../../hooks/useRole";
 
-  // useEffect(() => {
-  //   axios.post('http://localhost:8000/api/auth/fetchprofile', fetchInfo)
-  //     .then(res => {
-  //       const { userFound, userInfo } = res.data;
-  //       setUserDetails({ ...userFound, ...userInfo });
-  //     }
-  //     )
-  //     .catch(err => console.log(err));
-  //   }, []);
+const Recipe = () => {
+  const location = useLocation();
+
+  const data = location.state.name;
+  console.log(location.state.name);
+  const userRole = useRole();
+  const i=0;
+
+  const [recipe,setRecipe]= useState([]);
+  const [sendRecipeName, setSendRecipeName] = useState([data]);
+
+  useEffect(() => {
+    console.log("inside use effect");
+    axios.post('http://localhost:8000/api/auth/fetchSignleRecipe',sendRecipeName)
+      .then(res => {
+        console.log("after get method")
+        console.log(res.data);
+        setRecipe(res.data);
+      }
+      )
+      .catch(err => console.log(err));
+    }, []);
 
   const handlePrint = () => {
     window.print();
@@ -20,12 +35,18 @@ const Recipe = () => {
 
   return (
 
+    // recipe.map((x) =>(
     <div className="container">
+       
       <div className="row mt-5 d-flex text-center">
+     
         <div className="col mt-5">
-           <h1>Recipe Name</h1>
+        
+           <h1>{recipe.recipeName}</h1>
         </div>
       </div>
+      {/* {recipeNames.filter((item2) => item2.recipeName === item1.title).map((item2) => ( */}
+      
       <div className="card">
         <div className="row mx-1">
           <div className="col">
@@ -47,16 +68,16 @@ const Recipe = () => {
                     <b>NUTRITIONAL FACTS</b>
                     <div className="row my-2">
                       <div className="col-md-2">
-                        Calories: 
+                        Calories: {recipe.calories}
                       </div>
                       <div className="col-md-2">
-                        Carbohydrates: 
+                        Carbohydrates: {recipe.carbohydrates}
                       </div>
                       <div className="col-md-2">
-                        Protein: 
+                        Protein: {recipe.protein}
                       </div>
                       <div className="col-md-2">
-                        Fat: 
+                        Fat: {recipe.fat}
                       </div>
                     </div>
                   </div>
@@ -65,27 +86,25 @@ const Recipe = () => {
                    <div className="col">
                       <b className="hr-line">INGREDIENTS</b>
                       <ul>
-                        <li></li>
+                        <li>{recipe.ingredients}</li>
                       </ul>
                    </div><hr/>
                    <div className="col">
                       <b>INSTRUCTIONS</b>
                       <ol>
-                        <li></li>
+                        <li>{recipe.instructions}</li>
                       </ol>
                    </div><hr/>
                    <div className="col">
                       <b>BREAK DOWN OF ESSENTIAL INGREDIENTS</b>
-                      <p></p>
+                      <p>{recipe.benefits}</p>
                    </div><hr/>
-                    
-                  
-
-                
             </div>
           </div>
       </div>
+       
     </div>
+    // ))
   );
 };
 
