@@ -58,7 +58,7 @@ export default function ViewClientAppointmentsPage() {
   const fetchData = () => {
     setOpenPopup(false);
     axios
-      .get(`http://localhost:8000/api/appointment/fetchAppointments`, {
+      .get(`http://3.133.175.117:8000/api/appointment/fetchAppointments`, {
         headers: {
           authorization: `BEARER ${jwtToken}`,
         },

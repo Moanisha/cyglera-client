@@ -4,7 +4,7 @@ const SignupApiCall = async (data) => {
   // data -> {email,password,name,userRole}
   try {
     const response = await axios.post(
-      `http://localhost:8000/api/auth/signup`,
+      `http://3.133.175.117:8000/api/auth/signup`,
       data
     );
     return response;

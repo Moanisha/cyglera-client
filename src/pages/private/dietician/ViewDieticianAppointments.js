@@ -82,7 +82,7 @@ export default function ViewDieticianAppointmentsPage() {
     try {
       // Make an API call to submit the new meeting link to the backend
       const response = await axios.put(
-        `http://localhost:8000/api/appointment/${selectedId}`,
+        `http://3.133.175.117:8000/api/appointment/${selectedId}`,
         { videoLink: meetingLink },
         { headers: { authorization: `BEARER ${jwtToken}` } }
       );
@@ -101,7 +101,7 @@ export default function ViewDieticianAppointmentsPage() {
   };
   const fetchData = () => {
     axios
-      .get(`http://localhost:8000/api/appointment/fetchAppointments`, {
+      .get(`http://3.133.175.117:8000/api/appointment/fetchAppointments`, {
         headers: {
           authorization: `BEARER ${jwtToken}`,
         },
