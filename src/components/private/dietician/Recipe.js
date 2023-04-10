@@ -100,10 +100,7 @@ const Recipe = () => {
               <b>BREAK DOWN OF ESSENTIAL INGREDIENTS</b>
               <p>{recipe.benefits}</p>
                 </div>
-              </div>
-              <hr/>
-                
-            <hr />
+              </div> 
           </div>
         </div>
       </div>

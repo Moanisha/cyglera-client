@@ -170,7 +170,6 @@ const Recipes = () => {
                     <div className="card-title">
                       <a
                         className="btn"
-                        href="/recipes/:recipeName"
                         onClick={() => navigateTo(item2.recipeName)}
                         style={{ color: "black", textDecoration: "none" }}
                       >
