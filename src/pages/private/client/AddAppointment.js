@@ -39,13 +39,14 @@ export default function AddAppointmentPage(props) {
     try {
       const newSlots = slots.filter((slot) => slot !== values.slot);
       await axios.post(
-        `http://localhost:8000/api/appointment/createAppointment`,
+        `http://3.133.175.117:8000/api/appointment/createAppointment`,
         {
           values,
           relatedTo,
           relatedFrom,
           newSlots,
           roleId,
+          tomorrowFormatted,
         },
         {
           headers: {
@@ -66,7 +67,7 @@ export default function AddAppointmentPage(props) {
     });
     if (name === "userRole") {
       const response = await axios.get(
-        `http://localhost:8000/api/appointment/fetchUsers?role=${value}`,
+        `http://3.133.175.117:8000/api/appointment/fetchUsers?role=${value}`,
         {
           headers: {
             authorization: `BEARER ${jwtToken}`,

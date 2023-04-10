@@ -1,6 +1,17 @@
 import { React, useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Link, Container } from "@mui/material";
+import {
+  Link,
+  Container,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  Button,
+  DialogContentText,
+} from "@mui/material";
+
 import { ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import axios from "axios";
@@ -36,19 +47,61 @@ const columns = [
     field: "videoLink",
     flex: 1,
     headerName: "Zoom Link",
-    renderCell: (params) => <Link href={`${params.value}`}>Zoom Link</Link>,
+    renderCell: (params) => {
+      if (!params.value) {
+        return <span>Click to confirm</span>;
+      }
+      return <Link href={`${params.value}`}>{params.value}</Link>;
+    },
   },
 ];
 
 export default function ViewDieticianAppointmentsPage() {
   const { jwtToken } = useStateValues();
   const { userData } = useStateValues();
-
+  const [open, setOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+  const [meetingLink, setMeetingLink] = useState("");
   const [rows, setRows] = useState([]);
 
+  const handleClickOpen = (id) => {
+    setSelectedId(id);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setSelectedId(null);
+    setOpen(false);
+  };
+
+  const handleMeetingLinkChange = (event) => {
+    setMeetingLink(event.target.value);
+  };
+
+  const handleConfirmAppointment = async () => {
+    try {
+      // Make an API call to submit the new meeting link to the backend
+      const response = await axios.put(
+        `http://3.133.175.117:8000/api/appointment/${selectedId}`,
+        { videoLink: meetingLink },
+        { headers: { authorization: `BEARER ${jwtToken}` } }
+      );
+
+      // Update the rows in the state with the new value for the selected row
+      const updatedRows = rows.map((row) =>
+        row.id === selectedId ? { ...row, videoLink: meetingLink } : row
+      );
+      setRows(updatedRows);
+
+      // Close the dialog
+      handleClose();
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const fetchData = () => {
     axios
-      .get(`http://localhost:8000/api/appointment/fetchAppointments`, {
+      .get(`http://3.133.175.117:8000/api/appointment/fetchAppointments`, {
         headers: {
           authorization: `BEARER ${jwtToken}`,
         },
@@ -102,8 +155,37 @@ export default function ViewDieticianAppointmentsPage() {
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[5]}
-          checkboxSelection
+          onRowClick={(event, rowData) => {
+            const rowId = event.id;
+            // call your method with rowId as a parameter
+            handleClickOpen(rowId);
+          }}
         />
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>{"Add Meeting Link"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Please enter the meeting link for the appointment with ID{" "}
+              {selectedId}.
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="meetingLink"
+              label="Meeting Link"
+              type="text"
+              fullWidth
+              value={meetingLink}
+              onChange={handleMeetingLinkChange}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={handleConfirmAppointment}>
+              Confirm Appointment
+            </Button>
+          </DialogActions>
+        </Dialog>
       </ThemeProvider>
     </Container>
   );
