@@ -86,7 +86,7 @@ const App = () => {
             />
 
             <Route
-              path="recipes/:recipe_id"
+              path="recipes/:recipeName"
               element={
                 <Protected redirect={<WelcomeUser />}>
                   <Recipe />

@@ -122,7 +122,7 @@ const Recipes = () => {
   const [recipeNames,setRecipeNames]= useState([]);
   const navigate = useNavigate();
   const navigateTo = (recipeName) => {
-    navigate("/recipes/:recipeName", { state: { name: recipeName } });
+    navigate(`/recipes/${recipeName}`, { state: { name: recipeName } });
   };
 
   useEffect(() => {
@@ -168,11 +168,11 @@ const Recipes = () => {
              <img width='100%' src={item1.imageUrl} alt={item1.title}/>
              {recipeNames.filter((item2) => item2.recipeName === item1.title).map((item2) => (
                   <div className="card-title">
-                    <a className="btn" href="/recipes/:recipeName" onClick={() => navigateTo(item2.recipeName)} style={{ color: 'black', textDecoration: 'none' }}><b>{item2.recipeName}</b></a>
+                    <a className="btn" onClick={() => navigateTo(item2.recipeName)} style={{ color: 'black', textDecoration: 'none' }}><b>{item2.recipeName}</b></a>
                     {console.log(item2)}
                   </div>
                  ))}  
-          </div>
+          </div> 
         </div>
         </div>
         

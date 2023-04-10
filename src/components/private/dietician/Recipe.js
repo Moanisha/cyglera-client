@@ -47,7 +47,7 @@ const Recipe = () => {
       </div>
       {/* {recipeNames.filter((item2) => item2.recipeName === item1.title).map((item2) => ( */}
       
-      <div className="card">
+      <div className="card mb-5">
         <div className="row mx-1">
           <div className="col">
               <div className="row mt-1 d-flex text-center">
@@ -98,7 +98,7 @@ const Recipe = () => {
                    <div className="col">
                       <b>BREAK DOWN OF ESSENTIAL INGREDIENTS</b>
                       <p>{recipe.benefits}</p>
-                   </div><hr/>
+                   </div>
             </div>
           </div>
       </div>
