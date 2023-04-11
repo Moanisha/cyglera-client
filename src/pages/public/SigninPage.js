@@ -8,7 +8,7 @@ import SigninComponent from "../../components/public/SigninComponent";
 import ToastFunc from "../../helpers/toasts/ToastFunc";
 
 import useActionDispatcher from "../../hooks/useActionDispatcher";
-
+import loginbg from "../../assets/login.jpg";
 const SigninPage = () => {
   const initialValue = {
     email: "",
@@ -89,17 +89,24 @@ const SigninPage = () => {
 
   return (
     <>
-      <>
+      <Box
+        sx={{
+          backgroundImage: `url(${loginbg})`,
+          backgroundSize: "cover",
+          minHeight: "100vh",
+        }}
+      >
         <Box sx={{ textAlign: "center" }}>
-          <Typography variant="h3">SignIn</Typography>
+          <Typography variant="h3">SALUSWELL</Typography>
         </Box>
-      </>
-      <SigninComponent
-        state={state}
-        errorState={errorState}
-        submitForm={submitForm}
-        handleChange={handleChange}
-      />
+
+        <SigninComponent
+          state={state}
+          errorState={errorState}
+          submitForm={submitForm}
+          handleChange={handleChange}
+        />
+      </Box>
     </>
   );
 };
