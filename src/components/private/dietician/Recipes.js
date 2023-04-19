@@ -122,6 +122,9 @@ const Recipes = () => {
   const navigateTo = (recipeName) => {
     navigate(`/recipes/${recipeName}`, { state: { name: recipeName } });
   };
+  const navigateToAddRecipe = () => {
+    navigate(`/addrecipes/`);
+  };
 
   useEffect(() => {
     console.log("inside ue effect");
@@ -150,9 +153,17 @@ const Recipes = () => {
             <></>
           ) : (
             <>
-              <a href="/addrecipes" className="btn btn-primary">
+              <a 
+              // href="/addrecipes" 
+              className="btn btn-primary"
+              onClick={() => navigateToAddRecipe()}>
                 Add Recipe
               </a>
+              {/* <a
+                        className="btn"
+                        onClick={() => navigateTo(item2.recipeName)}
+                        style={{ color: "black", textDecoration: "none" }}
+                ></a> */}
             </>
           )}
         </div>
