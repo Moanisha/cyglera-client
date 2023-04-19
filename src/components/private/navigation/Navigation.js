@@ -115,7 +115,7 @@ const Navigation = ({ navFeaturesList }) => {
             </Box>
 
             {/* this is logo showing in mobileView */}
-            {/* <Box
+            <Box
               component="img"
               sx={{
                 my: 2,
@@ -126,7 +126,7 @@ const Navigation = ({ navFeaturesList }) => {
               }}
               alt="Your logo."
               src="https://app.saluswell.com/wp-content/uploads/2022/06/saluswell-logo.png"
-            /> */}
+            />
             {/* this is the navigation in above md View */}
             <Box
               sx={{ flexGrow: 1, ml: 5, display: { xs: "none", md: "flex" } }}
